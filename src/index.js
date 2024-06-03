@@ -4,6 +4,7 @@ const connection = require('./config/db');
 const mysql = require('mysql2');
 const express = require('express');
 const auth = require('./routes/auth/auth');
+
 const PORT = process.env.PORT || 3000;
 const app = express();
 
