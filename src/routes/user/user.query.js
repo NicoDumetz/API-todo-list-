@@ -34,15 +34,8 @@ exports.pick_user = function(user_id, callback) {
             return callback(err, null);
         if (results.length > 0) {
             const user_info = results[0];
-            const formatted_date = new Date(user_info.created_at).toLocaleString('fr-FR', {
-                day: '2-digit',
-                month: '2-digit',
-                year: 'numeric',
-                hour: '2-digit',
-                minute: '2-digit',
-                second: '2-digit'
-            });
-            user_info.created_at = formatted_date;
+            const formatted = new Date(user_info.created_at).toISOString().slice(0, 19).replace('T', ' ');
+            user_info.created_at = formatted;
             callback(null, user_info);
         } else {
             callback(null, null);
@@ -57,23 +50,9 @@ exports.user_todos = function(user_id, callback) {
         if (results.length > 0) {
             const todos_info = results;
             for (let i = 0; i < results.length; i++) {
-                const formatted = new Date(todos_info[i].due_time).toLocaleString('fr-FR', {
-                    day: '2-digit',
-                    month: '2-digit',
-                    year: 'numeric',
-                    hour: '2-digit',
-                    minute: '2-digit',
-                    second: '2-digit'
-                });
-                todos_info[i].due_time = formatted;
-                const form = new Date(todos_info[i].created_at).toLocaleString('fr-FR', {
-                    day: '2-digit',
-                    month: '2-digit',
-                    year: 'numeric',
-                    hour: '2-digit',
-                    minute: '2-digit',
-                    second: '2-digit'
-                });
+                const formatted = new Date(todos_info[i].due_time).toISOString().slice(0, 19).replace('T', ' ');
+                todos_info.due_time = formatted;
+                const form = new Date(todos_info[i].created_at).toISOString().slice(0, 19).replace('T', ' ');
                 todos_info[i].created_at = form;
             }
             callback(null, todos_info);
@@ -91,15 +70,8 @@ exports.pick_user_with_mail = function(mail, callback) {
         }
         if (results.length > 0) {
             const user_info = results[0];
-            const formatted_date = new Date(user_info.created_at).toLocaleString('fr-FR', {
-                day: '2-digit',
-                month: '2-digit',
-                year: 'numeric',
-                hour: '2-digit',
-                minute: '2-digit',
-                second: '2-digit'
-            });
-            user_info.created_at = formatted_date;
+            const formatted = new Date(user_info.created_at).toISOString().slice(0, 19).replace('T', ' ');
+            user_info.created_at = formatted;
             callback(null, user_info);
         } else {
             callback(null, null);
@@ -113,15 +85,8 @@ exports.pick_user_with_id = function(id, callback) {
             return callback(err, null);
         if (results.length > 0) {
             const user_info = results[0];
-            const formatted_date = new Date(user_info.created_at).toLocaleString('fr-FR', {
-                day: '2-digit',
-                month: '2-digit',
-                year: 'numeric',
-                hour: '2-digit',
-                minute: '2-digit',
-                second: '2-digit'
-            });
-            user_info.created_at = formatted_date;
+            const formatted = new Date(user_info.created_at).toISOString().slice(0, 19).replace('T', ' ');
+            user_info.created_at = formatted;
             callback(null, user_info);
         } else {
             callback(null, null);
