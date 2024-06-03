@@ -1,7 +1,7 @@
 {
   "name": "b-web-200-lil-2-1-epytodo-nicolas.dumetz",
   "version": "1.0.0",
-  "description": "Todo list",
+  "description": "API Todo list",
   "main": "src/index.js",
   "scripts": {
     "start": "node src/index.js",
