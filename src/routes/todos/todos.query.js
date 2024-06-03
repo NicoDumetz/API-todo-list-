@@ -126,3 +126,13 @@ exports.update_todo = function(id, title, description, due_time, user_id, status
         }
     });
 }
+
+module.exports.check_user_exists = function(user_id, callback) {
+    db.query('SELECT COUNT(*) AS count FROM user WHERE id = ?', [user_id], (err, results) => {
+        if (err) {
+            return callback(err, null);
+        }
+        const userexists = results[0].count > 0;
+        callback(null, userexists);
+    });
+};

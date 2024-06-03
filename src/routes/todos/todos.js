@@ -11,13 +11,19 @@ module.exports.todo_init = function(app) {
         let status = req.body["status"];
 
         if (title === undefined || description === undefined  || due_time === undefined || user_id === undefined || status === undefined)
-            return res.status(400).json({"msg": "Bad parameter"})
-        todo_query.create_todo(title, description, due_time, user_id, status, (err, success, user_info) => {
+            return res.status(400).json({"msg": "Bad parameter"});
+        todo_query.check_user_exists(user_id, (err, userExists) => {
             if (err)
                 return res.status(500).json({"msg": "Internal server error"});
-            if (success)
-                return res.status(201).json(user_info);
-            return res.status(404).json({"msg": "Not found"});
+            if (!userExists)
+                return res.status(404).json({"msg": "Not found"});
+            todo_query.create_todo(title, description, due_time, user_id, status, (err, success, user_info) => {
+                if (err)
+                    return res.status(500).json({"msg": "Internal server error"});
+                if (success)
+                    return res.status(201).json(user_info);
+                return res.status(404).json({"msg": "Not found"});
+            });
         });
     });
 };
@@ -67,15 +73,22 @@ module.exports.update_todo = function(app) {
         let user_id = req.body["user_id"];
         let status = req.body["status"];
 
-        if (title == undefined || description  == undefined || due_time  == undefined || user_id  == undefined || status == undefined)
-                return res.status(400).json({"msg": "Bad parameter"});
+        if (title == undefined || description == undefined || due_time == undefined || user_id == undefined || status == undefined)
+            return res.status(400).json({"msg": "Bad parameter"});
 
-        todo_query.update_todo(id, title, description, due_time, user_id, status, (err, success, user_info) => {
+        todo_query.check_user_exists(user_id, (err, userExists) => {
             if (err)
                 return res.status(500).json({"msg": "Internal server error"});
-            if (success)
-                return res.status(200).json(user_info[0]);
-            return res.status(404).json({"msg": "Not found"});
+            if (!userExists)
+                return res.status(404).json({"msg": "Not found"});
+
+            todo_query.update_todo(id, title, description, due_time, user_id, status, (err, success, todo_info) => {
+                if (err)
+                    return res.status(500).json({"msg": "Internal server error"});
+                if (success)
+                    return res.status(200).json(todo_info[0]);
+                return res.status(404).json({"msg": "Not found"});
+            });
         });
-});
+    });
 };
