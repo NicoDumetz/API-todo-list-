@@ -34,3 +34,14 @@ module.exports.todo_delete = function(app) {
         });
     });
 };
+
+module.exports.todo_query = function(app) {
+    app.get('/todos', auth.check_token, (req, res) => {
+    
+        todo_query.pick_all_todos((err, todos_info) => {
+            if (err)
+                return res.status(500).json({"msg": "Internal server error"});
+            res.status(200).json(todos_info);
+        });
+    });
+};  
