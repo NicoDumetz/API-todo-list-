@@ -1,4 +1,4 @@
-let db = require('../config/db')
+const { connection: db }= require("../config/db");
 
 module.exports.check_id = function(req, res, next) {
     let id = req.params.id;

@@ -1,4 +1,4 @@
-let db = require('../../config/db');
+const{ connection: db } = require("../../config/db");
 
 
 exports.pick_todo = function(user_id, callback) {

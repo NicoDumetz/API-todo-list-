@@ -43,4 +43,4 @@ module.exports.todo_query = function(app) {
             res.status(200).json(todos_info);
         });
     });
-};  
+};

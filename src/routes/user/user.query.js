@@ -1,4 +1,4 @@
-let db = require('../../config/db');
+const { connection: db } = require("../../config/db");
 const jwt = require('jsonwebtoken');
 
 exports.get_user = function(email, callback) {
