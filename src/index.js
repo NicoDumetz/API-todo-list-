@@ -5,6 +5,7 @@ const mysql = require('mysql2');
 const express = require('express');
 const auth = require('./routes/auth/auth');
 const user = require('./routes/user/user');
+const todos = require('./routes/todos/todos');
 
 
 const PORT = process.env.PORT || 3000;
@@ -20,6 +21,7 @@ user.user(app);
 user.user_with_data(app);
 user.delete_user(app);
 user.update_user(app, bcrypt);
+todos.todo_init(app);
 
 app.listen(PORT, () => {
     console.log(`Serveur open on the port: ${PORT}`);

@@ -1,5 +1,3 @@
-const db = require('../../config/db');
-const jwt = require('jsonwebtoken');
 const auth = require('../../middleware/auth');
 const user_query = require('./../user/user.query');
 
