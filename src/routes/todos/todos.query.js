@@ -41,24 +41,26 @@ module.exports.pick_all_todos = function(callback) {
         }
         if (results.length > 0) {
             const todos_info = results;
-            const formatted_date = new Date(todo_info.created_at).toLocaleString('fr-FR', {
-                day: '2-digit',
-                month: '2-digit',
-                year: 'numeric',
-                hour: '2-digit',
-                minute: '2-digit',
-                second: '2-digit'
-            });
-            todo_info.created_at = formatted_date;
-            const formatted = new Date(todo_info.due_time).toLocaleString('fr-FR', {
-                day: '2-digit',
-                month: '2-digit',
-                year: 'numeric',
-                hour: '2-digit',
-                minute: '2-digit',
-                second: '2-digit'
-            });
-            todo_info.due_time = formatted;
+            for (let i = 0; i < results.length; i++) {
+                const formatted = new Date(todos_info[i].due_time).toLocaleString('fr-FR', {
+                    day: '2-digit',
+                    month: '2-digit',
+                    year: 'numeric',
+                    hour: '2-digit',
+                    minute: '2-digit',
+                    second: '2-digit'
+                });
+                todos_info[i].due_time = formatted;
+                const form = new Date(todos_info[i].created_at).toLocaleString('fr-FR', {
+                    day: '2-digit',
+                    month: '2-digit',
+                    year: 'numeric',
+                    hour: '2-digit',
+                    minute: '2-digit',
+                    second: '2-digit'
+                });
+                todos_info[i].created_at = form;
+            }
             callback(null, todos_info);
         } else {
             callback(null, null);
@@ -74,6 +76,26 @@ module.exports.todo_id = function(id, callback) {
         }
         if (results.length > 0) {
             const todos_info = results;
+            for (let i = 0; i < results.length; i++) {
+                const formatted = new Date(todos_info[i].due_time).toLocaleString('fr-FR', {
+                    day: '2-digit',
+                    month: '2-digit',
+                    year: 'numeric',
+                    hour: '2-digit',
+                    minute: '2-digit',
+                    second: '2-digit'
+                });
+                todos_info[i].due_time = formatted;
+                const form = new Date(todos_info[i].created_at).toLocaleString('fr-FR', {
+                    day: '2-digit',
+                    month: '2-digit',
+                    year: 'numeric',
+                    hour: '2-digit',
+                    minute: '2-digit',
+                    second: '2-digit'
+                });
+                todos_info[i].created_at = form;
+            }
             callback(null, todos_info);
         } else {
             callback(null, null);
@@ -121,6 +143,26 @@ module.exports.todo_disp_update = function(id, callback) {
         }
         if (results.length > 0) {
             const todos_info = results;
+            for (let i = 0; i < results.length; i++) {
+                const formatted = new Date(todos_info[i].due_time).toLocaleString('fr-FR', {
+                    day: '2-digit',
+                    month: '2-digit',
+                    year: 'numeric',
+                    hour: '2-digit',
+                    minute: '2-digit',
+                    second: '2-digit'
+                });
+                todos_info[i].due_time = formatted;
+                const form = new Date(todos_info[i].created_at).toLocaleString('fr-FR', {
+                    day: '2-digit',
+                    month: '2-digit',
+                    year: 'numeric',
+                    hour: '2-digit',
+                    minute: '2-digit',
+                    second: '2-digit'
+                });
+                todos_info[i].created_at = form;
+            }
             callback(null, todos_info);
         } else {
             callback(null, null);

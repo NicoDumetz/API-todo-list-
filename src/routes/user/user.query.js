@@ -56,6 +56,26 @@ exports.user_todos = function(user_id, callback) {
             return callback(err, null);
         if (results.length > 0) {
             const todos_info = results;
+            for (let i = 0; i < results.length; i++) {
+                const formatted = new Date(todos_info[i].due_time).toLocaleString('fr-FR', {
+                    day: '2-digit',
+                    month: '2-digit',
+                    year: 'numeric',
+                    hour: '2-digit',
+                    minute: '2-digit',
+                    second: '2-digit'
+                });
+                todos_info[i].due_time = formatted;
+                const form = new Date(todos_info[i].created_at).toLocaleString('fr-FR', {
+                    day: '2-digit',
+                    month: '2-digit',
+                    year: 'numeric',
+                    hour: '2-digit',
+                    minute: '2-digit',
+                    second: '2-digit'
+                });
+                todos_info[i].created_at = form;
+            }
             callback(null, todos_info);
         } else {
             callback(null, null);
