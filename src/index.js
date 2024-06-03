@@ -23,6 +23,8 @@ user.update_user(app, bcrypt);
 todos.todo_init(app);
 todos.todo_delete(app);
 todos.todo_query(app);
+todos.todo_with_id(app);
+todos.update_todo(app);
 
 app.listen(PORT, () => {
   console.log(`Serveur open on the port: ${PORT}`);

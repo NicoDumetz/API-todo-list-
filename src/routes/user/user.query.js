@@ -29,7 +29,7 @@ exports.already_exist = function(email, callback) {
 }
 
 exports.pick_user = function(user_id, callback) {
-    db.execute('SELECT * FROM user WHERE id = ?', [user_id], (err, results) => {
+    db.execute('SELECT id, email, password, created_at, firstname, name FROM user WHERE id = ?', [user_id], (err, results) => {
         if (err)
             return callback(err, null);
         if (results.length > 0) {
@@ -42,7 +42,7 @@ exports.pick_user = function(user_id, callback) {
 }
 
 exports.pick_user_with_mail = function(mail, callback) {
-    db.execute('SELECT * FROM user WHERE email = ?', [mail], (err, results) => {
+    db.execute('SELECT id, email, password, created_at, firstname, name FROM user WHERE email = ?', [mail], (err, results) => {
         if (err) {
             console.log(err);
             return callback(err, null);
@@ -57,7 +57,7 @@ exports.pick_user_with_mail = function(mail, callback) {
 }
 
 exports.pick_user_with_id = function(id, callback) {
-    db.execute('SELECT * FROM user WHERE id = ?', [id], (err, results) => {
+    db.execute('SELECT id, email, password, created_at, firstname, name FROM user WHERE id = ?', [id], (err, results) => {
         if (err)
             return callback(err, null);
         if (results.length > 0) {

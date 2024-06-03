@@ -1,4 +1,5 @@
 const{ connection: db } = require("../../config/db");
+const { user } = require("../user/user");
 
 
 exports.pick_todo = function(user_id, callback) {
@@ -15,7 +16,22 @@ exports.pick_todo = function(user_id, callback) {
 }
 
 module.exports.pick_all_todos = function(callback) {
-    db.execute('SELECT * FROM todo', (err, results) => {
+    db.execute('SELECT id, title, description,  created_at, due_time, user_id, status FROM todo', (err, results) => {
+        if (err) {
+            console.log(err);
+            return callback(err, null);
+        }
+        if (results.length > 0) {
+            const todos_info = results;
+            callback(null, todos_info);
+        } else {
+            callback(null, null);
+        }
+    });
+}
+
+module.exports.todo_id = function(id, callback) {
+    db.execute('SELECT id, title, description,  created_at, due_time, user_id, status FROM todo WHERE id = ?', [id], (err, results) => {
         if (err) {
             console.log(err);
             return callback(err, null);
@@ -58,5 +74,37 @@ exports.delete_todo_db = function(id, callback) {
             return callback(null, true);
         else
             return callback(null, false);
+    });
+}
+
+module.exports.todo_disp_update = function(id, callback) {
+    db.execute('SELECT id, title, description, due_time, user_id, status FROM todo WHERE id = ?', [id], (err, results) => {
+        if (err) {
+            console.log(err);
+            return callback(err, null);
+        }
+        if (results.length > 0) {
+            const todos_info = results;
+            callback(null, todos_info);
+        } else {
+            callback(null, null);
+        }
+    });
+}
+
+exports.update_todo = function(id, title, description, due_time, user_id, status, callback) {
+    db.execute('UPDATE todo SET title = ?, description = ?, due_time = ?, user_id = ?, status = ? WHERE id = ?',
+    [title, description, due_time, user_id, status, id], (err, result) => {
+        if (err)
+            return callback(err);
+        if (result.affectedRows > 0) {
+            exports.todo_disp_update(id, (err, user_info) => {
+                if (err)
+                    return callback(err);
+                return callback(null, true, user_info);
+            });
+        } else {
+            return callback(null, false, null);
+        }
     });
 }

@@ -63,8 +63,10 @@ module.exports.update_user = function(app, bcrypt) {
                 return res.status(400).json({"msg": "Bad parameter"});
         password = bcrypt.hashSync(password, 10);
         user_query.update_user_with_id(id, mail, name, firstname, password, (err, success, user_info) => {
-            if (err)
+            if (err) {
+                console.log(err);
                 return res.status(500).json({"msg": "Internal server error"});
+            }
             if (success)
                 return res.status(200).json(user_info);
         });
