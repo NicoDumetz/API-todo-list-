@@ -9,20 +9,20 @@ module.exports.register = function(app, bcrypt) {
 };
 
 function handle_register(req, res, bcrypt) {
-    var email = req.body["email"];
-    var name = req.body["name"];
-    var firstname = req.body["firstname"];
-    var password = req.body["password"];
+    let email = req.body["email"];
+    let name = req.body["name"];
+    let firstname = req.body["firstname"];
+    let password = req.body["password"];
 
     if (!email || !name || !firstname || !password)
-        return res.status(500).json({"msg": "Bad parameter"})
+        return res.status(400).json({"msg": "Bad parameter"})
     if (!/@/.test(email))
-        return res.status(500).json({"msg":"Invalid email format"});
+        return res.status(400).json({"msg":"Invalid email format"});
     user_query.already_exist(email, (err, userExists) => {
         if (err)
             return res.status(500).json({"msg": "Internal server error"});
         if (userExists)
-            return res.status(500).json({"msg":"Account already exists"});
+            return res.status(400).json({"msg":"Account already exists"});
         const hash = bcrypt.hashSync(password, 10);
         user_query.insert_user_db(email, hash, name, firstname, (err, token) => {
             if (err)
@@ -43,12 +43,12 @@ function handle_login(req, res, bcrypt) {
     const password = req.body["password"];
 
     if (!email || !password)
-        return res.status(500).json({"msg": "Bad parameter"})
+        return res.status(400).json({"msg": "Bad parameter"})
     user_query.get_user(email, (err, user) => {
         if (err)
-            return res.status(500).json({"msg": "Internal server error"});
+            return res.status(400).json({"msg": "Internal server error"});
         if (!user)
-            return res.status(401).json({"msg":"Invalid Credentials"});
+            return res.status(400).json({"msg":"Invalid Credentials"});
         bcrypt.compare(password, user.password, (err, result) => {
             if (err)
                 return res.status(500).json({"msg": "Internal server error"});
@@ -56,7 +56,7 @@ function handle_login(req, res, bcrypt) {
                 const token = jwt.sign({ email, id: user.id }, process.env.SECRET);
                 res.json({token});
             } else
-                res.status(401).json({"msg":"Invalid Credentials"});
+                res.status(400).json({"msg":"Invalid Credentials"});
         });
     });
 }

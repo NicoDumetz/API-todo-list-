@@ -6,12 +6,12 @@ module.exports.check_token = function(req, res, next) {
     if (token) {
         verify_token(token, (err, user) => {
             if (err)
-                return res.status(498).json({"msg":"Token is not valid"});
+                return res.status(401).json({"msg":"Token is not valid"});
             req.user = user.id;
             next();
         });
     } else {
-        res.status(498).json({"msg":"No token , authorization denied"});
+        res.status(401).json({"msg":"No token , authorization denied"});
     }
 };
 

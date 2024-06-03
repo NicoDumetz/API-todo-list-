@@ -1,4 +1,4 @@
-var db = require('../../config/db');
+let db = require('../../config/db');
 const jwt = require('jsonwebtoken');
 
 exports.get_user = function(email, callback) {

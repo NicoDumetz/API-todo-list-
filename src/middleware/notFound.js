@@ -1,7 +1,7 @@
-var db = require('../config/db')
+let db = require('../config/db')
 
 module.exports.check_id = function(req, res, next) {
-    var id = req.params.id;
+    let id = req.params.id;
 
     db.execute('SELECT * FROM todo WHERE id = ?', [id], (err, results) => {
         if (err)

@@ -54,13 +54,13 @@ module.exports.delete_user = function(app) {
 module.exports.update_user = function(app, bcrypt) {
     app.put('/user/:id', auth.check_token, (req, res) => {
         const id = req.params.id;
-        var mail = req.body["email"];
-        var name = req.body["name"];
-        var firstname = req.body["firstname"];
-        var password = req.body["password"];
+        let mail = req.body["email"];
+        let name = req.body["name"];
+        let firstname = req.body["firstname"];
+        let password = req.body["password"];
 
         if (id === undefined || mail === undefined || name === undefined  || firstname === undefined || password === undefined)
-                return res.status(500).json({"msg": "Bad parameter"});
+                return res.status(400).json({"msg": "Bad parameter"});
         password = bcrypt.hashSync(password, 10);
         user_query.update_user_with_id(id, mail, name, firstname, password, (err, success, user_info) => {
             if (err)
