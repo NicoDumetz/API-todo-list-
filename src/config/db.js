@@ -17,6 +17,6 @@ connection.connect((err) => {
         console.error('Error with the connection of the database small bytes.');
         return;
     }
-    console.log('You are conencted to the database small bytes.');
+    console.log('You are conected to the database small bytes.');
 });
 module.exports = connection;
