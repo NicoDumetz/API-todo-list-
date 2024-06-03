@@ -22,6 +22,7 @@ user.user_with_data(app);
 user.delete_user(app);
 user.update_user(app, bcrypt);
 todos.todo_init(app);
+todos.todo_delete(app);
 
 app.listen(PORT, () => {
     console.log(`Serveur open on the port: ${PORT}`);

@@ -34,3 +34,14 @@ module.exports.create_todo = function(title, description, due_time, user_id, sta
         }
     );
 };
+
+exports.delete_todo_db = function(id, callback) {
+    db.execute('DELETE FROM todo WHERE id = ?', [id], (err, result) => {
+        if (err)
+            return callback(err);
+        if (result.affectedRows > 0)
+            return callback(null, true);
+        else
+            return callback(null, false);
+    });
+}

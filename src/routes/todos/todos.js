@@ -21,3 +21,16 @@ module.exports.todo_init = function(app) {
         });
     });
 };
+
+module.exports.todo_delete = function(app) {
+    app.delete('/todos/:id', auth.check_token, notfound.check_id, (req, res) => {
+        const id = req.params.id;
+
+        todo_query.delete_todo_db(id, (err, success) => {
+            if (err)
+                return res.status(500).json({"msg": "Internal server error"});
+            if (success)
+                return res.status(200).json({"msg": `Successfully deleted record number: ${id}`});
+        });
+    });
+};
