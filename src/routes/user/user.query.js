@@ -34,6 +34,15 @@ exports.pick_user = function(user_id, callback) {
             return callback(err, null);
         if (results.length > 0) {
             const user_info = results[0];
+            const formatted_date = new Date(user_info.created_at).toLocaleString('fr-FR', {
+                day: '2-digit',
+                month: '2-digit',
+                year: 'numeric',
+                hour: '2-digit',
+                minute: '2-digit',
+                second: '2-digit'
+            });
+            user_info.created_at = formatted_date;
             callback(null, user_info);
         } else {
             callback(null, null);
@@ -62,6 +71,15 @@ exports.pick_user_with_mail = function(mail, callback) {
         }
         if (results.length > 0) {
             const user_info = results[0];
+            const formatted_date = new Date(user_info.created_at).toLocaleString('fr-FR', {
+                day: '2-digit',
+                month: '2-digit',
+                year: 'numeric',
+                hour: '2-digit',
+                minute: '2-digit',
+                second: '2-digit'
+            });
+            user_info.created_at = formatted_date;
             callback(null, user_info);
         } else {
             callback(null, null);
@@ -75,6 +93,15 @@ exports.pick_user_with_id = function(id, callback) {
             return callback(err, null);
         if (results.length > 0) {
             const user_info = results[0];
+            const formatted_date = new Date(user_info.created_at).toLocaleString('fr-FR', {
+                day: '2-digit',
+                month: '2-digit',
+                year: 'numeric',
+                hour: '2-digit',
+                minute: '2-digit',
+                second: '2-digit'
+            });
+            user_info.created_at = formatted_date;
             callback(null, user_info);
         } else {
             callback(null, null);

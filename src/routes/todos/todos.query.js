@@ -8,6 +8,24 @@ exports.pick_todo = function(user_id, callback) {
             return callback(err, null);
         if (results.length > 0) {
             const todo_info = results[0];
+            const formatted_date = new Date(todo_info.created_at).toLocaleString('fr-FR', {
+                day: '2-digit',
+                month: '2-digit',
+                year: 'numeric',
+                hour: '2-digit',
+                minute: '2-digit',
+                second: '2-digit'
+            });
+            todo_info.created_at = formatted_date;
+            const formatted = new Date(todo_info.due_time).toLocaleString('fr-FR', {
+                day: '2-digit',
+                month: '2-digit',
+                year: 'numeric',
+                hour: '2-digit',
+                minute: '2-digit',
+                second: '2-digit'
+            });
+            todo_info.due_time = formatted;
             callback(null, todo_info);
         } else {
             callback(null, null);
@@ -23,6 +41,24 @@ module.exports.pick_all_todos = function(callback) {
         }
         if (results.length > 0) {
             const todos_info = results;
+            const formatted_date = new Date(todo_info.created_at).toLocaleString('fr-FR', {
+                day: '2-digit',
+                month: '2-digit',
+                year: 'numeric',
+                hour: '2-digit',
+                minute: '2-digit',
+                second: '2-digit'
+            });
+            todo_info.created_at = formatted_date;
+            const formatted = new Date(todo_info.due_time).toLocaleString('fr-FR', {
+                day: '2-digit',
+                month: '2-digit',
+                year: 'numeric',
+                hour: '2-digit',
+                minute: '2-digit',
+                second: '2-digit'
+            });
+            todo_info.due_time = formatted;
             callback(null, todos_info);
         } else {
             callback(null, null);
