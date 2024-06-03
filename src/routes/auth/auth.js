@@ -17,7 +17,7 @@ function handle_register(req, res, bcrypt) {
     if (!email || !name || !firstname || !password)
         return res.status(400).json({"msg": "Bad parameter"})
     if (!/@/.test(email))
-        return res.status(400).json({"msg":"Invalid email format"});
+        return res.status(500).json({"msg":"Invalid email format"});
     user_query.already_exist(email, (err, userExists) => {
         if (err)
             return res.status(500).json({"msg": "Internal server error"});
@@ -27,7 +27,7 @@ function handle_register(req, res, bcrypt) {
         user_query.insert_user_db(email, hash, name, firstname, (err, token) => {
             if (err)
                 return res.status(500).json({"msg": "Internal server error"});
-            res.status(200).json({token});
+            res.status(201).json({token});
         });
     });
 }
@@ -46,7 +46,7 @@ function handle_login(req, res, bcrypt) {
         return res.status(400).json({"msg": "Bad parameter"})
     user_query.get_user(email, (err, user) => {
         if (err)
-            return res.status(400).json({"msg": "Internal server error"});
+            return res.status(500).json({"msg": "Internal server error"});
         if (!user)
             return res.status(400).json({"msg":"Invalid Credentials"});
         bcrypt.compare(password, user.password, (err, result) => {

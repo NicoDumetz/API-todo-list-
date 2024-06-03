@@ -28,7 +28,7 @@ module.exports.user = function(app) {
 };
 
 module.exports.user_with_data = function(app) {
-    app.get('/user/:value', auth.check_token, (req, res) => {
+    app.get('/users/:value', auth.check_token, (req, res) => {
         const value = req.params.value;
 
         user_query.pick_user_with_mail(value, (err, user_info) => {
@@ -52,7 +52,7 @@ module.exports.user_with_data = function(app) {
 };
 
 module.exports.delete_user = function(app) {
-    app.delete('/user/:id', auth.check_token, (req, res) => {
+    app.delete('/users/:id', auth.check_token, (req, res) => {
         const id = req.params.id;
 
         user_query.delete_user_db(id, (err, success) => {
@@ -65,7 +65,7 @@ module.exports.delete_user = function(app) {
 };
 
 module.exports.update_user = function(app, bcrypt) {
-    app.put('/user/:id', auth.check_token, (req, res) => {
+    app.put('/users/:id', auth.check_token, (req, res) => {
         const id = req.params.id;
         let mail = req.body["email"];
         let name = req.body["name"];
