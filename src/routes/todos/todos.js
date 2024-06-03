@@ -59,7 +59,7 @@ module.exports.todo_with_id = function(app) {
 };
 
 module.exports.update_todo = function(app) {
-    app.post('/todos/:id', auth.check_token, notfound.check_id, (req, res) => {
+    app.put('/todos/:id', auth.check_token, notfound.check_id, (req, res) => {
         let id = req.params.id;
         let title = req.body["title"];
         let description = req.body["description"];

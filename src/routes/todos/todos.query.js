@@ -8,23 +8,7 @@ exports.pick_todo = function(user_id, callback) {
             return callback(err, null);
         if (results.length > 0) {
             const todo_info = results[0];
-            const formatted_date = new Date(todo_info.created_at).toLocaleString('fr-FR', {
-                day: '2-digit',
-                month: '2-digit',
-                year: 'numeric',
-                hour: '2-digit',
-                minute: '2-digit',
-                second: '2-digit'
-            });
-            todo_info.created_at = formatted_date;
-            const formatted = new Date(todo_info.due_time).toLocaleString('fr-FR', {
-                day: '2-digit',
-                month: '2-digit',
-                year: 'numeric',
-                hour: '2-digit',
-                minute: '2-digit',
-                second: '2-digit'
-            });
+            const formatted = new Date(todo_info.due_time).toISOString().slice(0, 19).replace('T', ' ');
             todo_info.due_time = formatted;
             callback(null, todo_info);
         } else {
@@ -42,23 +26,9 @@ module.exports.pick_all_todos = function(callback) {
         if (results.length > 0) {
             const todos_info = results;
             for (let i = 0; i < results.length; i++) {
-                const formatted = new Date(todos_info[i].due_time).toLocaleString('fr-FR', {
-                    day: '2-digit',
-                    month: '2-digit',
-                    year: 'numeric',
-                    hour: '2-digit',
-                    minute: '2-digit',
-                    second: '2-digit'
-                });
+                const formatted = new Date(todos_info[i].due_time).toISOString().slice(0, 19).replace('T', ' ');
                 todos_info[i].due_time = formatted;
-                const form = new Date(todos_info[i].created_at).toLocaleString('fr-FR', {
-                    day: '2-digit',
-                    month: '2-digit',
-                    year: 'numeric',
-                    hour: '2-digit',
-                    minute: '2-digit',
-                    second: '2-digit'
-                });
+                const form = new Date(todos_info[i].created_at).toISOString().slice(0, 19).replace('T', ' ');
                 todos_info[i].created_at = form;
             }
             callback(null, todos_info);
@@ -77,23 +47,9 @@ module.exports.todo_id = function(id, callback) {
         if (results.length > 0) {
             const todos_info = results;
             for (let i = 0; i < results.length; i++) {
-                const formatted = new Date(todos_info[i].due_time).toLocaleString('fr-FR', {
-                    day: '2-digit',
-                    month: '2-digit',
-                    year: 'numeric',
-                    hour: '2-digit',
-                    minute: '2-digit',
-                    second: '2-digit'
-                });
+                const formatted = new Date(todos_info[i].due_time).toISOString().slice(0, 19).replace('T', ' ');
                 todos_info[i].due_time = formatted;
-                const form = new Date(todos_info[i].created_at).toLocaleString('fr-FR', {
-                    day: '2-digit',
-                    month: '2-digit',
-                    year: 'numeric',
-                    hour: '2-digit',
-                    minute: '2-digit',
-                    second: '2-digit'
-                });
+                const form = new Date(todos_info[i].created_at).toISOString().slice(0, 19).replace('T', ' ');
                 todos_info[i].created_at = form;
             }
             callback(null, todos_info);
@@ -136,7 +92,7 @@ exports.delete_todo_db = function(id, callback) {
 }
 
 module.exports.todo_disp_update = function(id, callback) {
-    db.execute('SELECT id, title, description, due_time, user_id, status FROM todo WHERE id = ?', [id], (err, results) => {
+    db.execute('SELECT title, description, due_time, user_id, status FROM todo WHERE id = ?', [id], (err, results) => {
         if (err) {
             console.log(err);
             return callback(err, null);
@@ -144,24 +100,8 @@ module.exports.todo_disp_update = function(id, callback) {
         if (results.length > 0) {
             const todos_info = results;
             for (let i = 0; i < results.length; i++) {
-                const formatted = new Date(todos_info[i].due_time).toLocaleString('fr-FR', {
-                    day: '2-digit',
-                    month: '2-digit',
-                    year: 'numeric',
-                    hour: '2-digit',
-                    minute: '2-digit',
-                    second: '2-digit'
-                });
+                const formatted = new Date(todos_info[i].due_time).toISOString().slice(0, 19).replace('T', ' ');
                 todos_info[i].due_time = formatted;
-                const form = new Date(todos_info[i].created_at).toLocaleString('fr-FR', {
-                    day: '2-digit',
-                    month: '2-digit',
-                    year: 'numeric',
-                    hour: '2-digit',
-                    minute: '2-digit',
-                    second: '2-digit'
-                });
-                todos_info[i].created_at = form;
             }
             callback(null, todos_info);
         } else {
