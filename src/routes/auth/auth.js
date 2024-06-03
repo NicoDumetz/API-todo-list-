@@ -22,7 +22,7 @@ function handle_register(req, res, bcrypt) {
         if (err)
             return res.status(500).json({"msg": "Internal server error"});
         if (userExists)
-            return res.status(400).json({"msg":"Account already exists"});
+            return res.status(409).json({"msg":"Account already exists"});
         const hash = bcrypt.hashSync(password, 10);
         user_query.insert_user_db(email, hash, name, firstname, (err, token) => {
             if (err)

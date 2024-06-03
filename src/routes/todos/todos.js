@@ -16,8 +16,7 @@ module.exports.todo_init = function(app) {
             if (err)
                 return res.status(500).json({"msg": "Internal server error"});
             if (success)
-                return res.status(200).json(user_info);
-            return res.status(200).json(user_info);
+                return res.status(201).json(user_info);
         });
     });
 };
@@ -31,6 +30,7 @@ module.exports.todo_delete = function(app) {
                 return res.status(500).json({"msg": "Internal server error"});
             if (success)
                 return res.status(200).json({"msg": `Successfully deleted record number: ${id}`});
+            return res.status(204).json();
         });
     });
 };
@@ -74,6 +74,7 @@ module.exports.update_todo = function(app) {
                 return res.status(500).json({"msg": "Internal server error"});
             if (success)
                 return res.status(200).json(user_info[0]);
+            return res.status(204).json();
         });
 });
 };

@@ -60,6 +60,7 @@ module.exports.delete_user = function(app) {
                 return res.status(500).json({"msg": "Internal server error"});
             if (success)
                 return res.status(200).json({"msg": `Successfully deleted record number: ${id}`});
+            return res.status(204).json();
         });
     });
 };
@@ -82,6 +83,7 @@ module.exports.update_user = function(app, bcrypt) {
             }
             if (success)
                 return res.status(200).json(user_info);
+            return res.status(204).json();
         });
     });
 };
