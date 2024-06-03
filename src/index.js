@@ -16,6 +16,7 @@ app.use(express.urlencoded({ extended: true }));
 
 auth.register(app, bcrypt);
 auth.login(app, bcrypt);
+user.user_todos(app);
 user.user(app);
 user.user_with_data(app);
 user.delete_user(app);

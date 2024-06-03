@@ -41,6 +41,19 @@ exports.pick_user = function(user_id, callback) {
     });
 }
 
+exports.user_todos = function(user_id, callback) {
+    db.execute('SELECT id, title, description, created_at, due_time, user_id, status FROM todo WHERE user_id = ?', [user_id], (err, results) => {
+        if (err)
+            return callback(err, null);
+        if (results.length > 0) {
+            const todos_info = results;
+            callback(null, todos_info);
+        } else {
+            callback(null, null);
+        }
+    });
+}
+
 exports.pick_user_with_mail = function(mail, callback) {
     db.execute('SELECT id, email, password, created_at, firstname, name FROM user WHERE email = ?', [mail], (err, results) => {
         if (err) {

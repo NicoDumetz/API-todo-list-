@@ -1,6 +1,19 @@
 const auth = require('../../middleware/auth');
 const user_query = require('./../user/user.query');
 
+module.exports.user_todos = function(app) {
+    app.get('/user/todos', auth.check_token, (req, res) => {
+        const id = req.user;
+
+        user_query.user_todos(id, (err, todos_info) => {
+            if (err) {
+                console.log(err);
+                return res.status(500).json({"msg": "Internal server error"});
+            }
+            res.status(200).json(todos_info);
+        });
+    });
+};
 
 module.exports.user = function(app) {
     app.get('/user', auth.check_token, (req, res) => {
