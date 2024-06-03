@@ -16,7 +16,6 @@ const connection = mysql.createConnection({
 });
 
 connection.connect((err) => {
-  console.log(HOST, USER, PASSWORD, DATABASE);
   if (err) {
     console.error(
       "Error with the connection of the database small bytes." + err
