@@ -39,3 +39,16 @@ module.exports.user_with_data = function(app) {
 
     });
 };
+
+module.exports.delete_user = function(app) {
+    app.delete('/user/:id', auth.check_token, (req, res) => {
+        const id = req.params.id;
+
+        user_query.delete_user_db(id, (err, success) => {
+            if (err)
+                return res.status(500).json({"msg": "Internal server error"});
+            if (success)
+                return res.status(200).json({"msg": `Successfully deleted record number: ${id}`});
+        });
+    });
+};

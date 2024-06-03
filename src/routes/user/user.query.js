@@ -68,3 +68,14 @@ exports.pick_user_with_id = function(id, callback) {
         }
     });
 }
+
+exports.delete_user_db = function(id, callback) {
+    db.execute('DELETE FROM user WHERE id = ?', [id], (err, result) => {
+        if (err)
+            return callback(err);
+        if (result.affectedRows > 0)
+            return callback(null, true);
+        else
+            return callback(null, false);
+    });
+}

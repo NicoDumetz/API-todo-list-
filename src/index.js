@@ -18,6 +18,7 @@ auth.register(app, bcrypt);
 auth.login(app, bcrypt);
 user.user(app);
 user.user_with_data(app);
+user.delete_user(app);
 
 app.listen(PORT, () => {
     console.log(`Serveur open on the port: ${PORT}`);
