@@ -33,8 +33,8 @@ exports.pick_user = function(user_id, callback) {
         if (err)
             return callback(err, null);
         if (results.length > 0) {
-            const userInfo = results[0];
-            callback(null, userInfo);
+            const user_info = results[0];
+            callback(null, user_info);
         } else {
             callback(null, null);
         }
@@ -48,8 +48,8 @@ exports.pick_user_with_mail = function(mail, callback) {
             return callback(err, null);
         }
         if (results.length > 0) {
-            const userInfo = results[0];
-            callback(null, userInfo);
+            const user_info = results[0];
+            callback(null, user_info);
         } else {
             callback(null, null);
         }
@@ -61,8 +61,8 @@ exports.pick_user_with_id = function(id, callback) {
         if (err)
             return callback(err, null);
         if (results.length > 0) {
-            const userInfo = results[0];
-            callback(null, userInfo);
+            const user_info = results[0];
+            callback(null, user_info);
         } else {
             callback(null, null);
         }
@@ -79,3 +79,20 @@ exports.delete_user_db = function(id, callback) {
             return callback(null, false);
     });
 }
+
+exports.update_user_with_id = function(id, mail, name, firstname, password, callback) {
+    db.execute('UPDATE user SET email = ?, name = ?, firstname = ?, password = ? WHERE id = ?',
+        [mail, name, firstname, password, id], (err, result) => {
+        if (err)
+            return callback(err);
+        if (result.affectedRows > 0) {
+            exports.pick_user(id, (err, user_info) => {
+                if (err)
+                    return callback(err);
+                return callback(null, true, user_info);
+            });
+        } else {
+            return callback(null, false, null);
+        }
+    });
+};

@@ -52,3 +52,23 @@ module.exports.delete_user = function(app) {
         });
     });
 };
+
+module.exports.update_user = function(app, bcrypt) {
+    app.put('/user/:id', auth.check_token, (req, res) => {
+        const id = req.params.id;
+        var mail = req.body["email"];
+        var name = req.body["name"];
+        var firstname = req.body["firstname"];
+        var password = req.body["password"];
+
+        if (id === undefined || mail === undefined || name === undefined  || firstname === undefined || password === undefined)
+                return res.status(500).json({"msg": "Bad parameter"});
+        password = bcrypt.hashSync(password, 10);
+        user_query.update_user_with_id(id, mail, name, firstname, password, (err, success, user_info) => {
+            if (err)
+                return res.status(500).json({"msg": "Internal server error"});
+            if (success)
+                return res.status(200).json(user_info);
+        });
+    });
+};

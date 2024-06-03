@@ -15,7 +15,7 @@ function handle_register(req, res, bcrypt) {
     var password = req.body["password"];
 
     if (!email || !name || !firstname || !password)
-        return res.status(500).json({"msg":"internal server error"});
+        return res.status(500).json({"msg": "Bad parameter"})
     if (!/@/.test(email))
         return res.status(500).json({"msg":"Invalid email format"});
     user_query.already_exist(email, (err, userExists) => {
@@ -43,8 +43,7 @@ function handle_login(req, res, bcrypt) {
     const password = req.body["password"];
 
     if (!email || !password)
-        return res.status(500).json({"msg":"internal server error"});
-
+        return res.status(500).json({"msg": "Bad parameter"})
     user_query.get_user(email, (err, user) => {
         if (err)
             return res.status(500).json({"msg": "Internal server error"});
